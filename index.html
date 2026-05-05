@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jack of All Trades | Vision Board</title>
+    <!-- Importing fonts to match the sketch/typewriter/collage aesthetic -->
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Permanent+Marker&family=VT323&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-paper: #fdfbf7;
+            --grid-color: #e4e0d7;
+            --text-dark: #1a1a1a;
+            --pink: #ff6b9e;
+            --blue: #2a6df4;
+            --yellow: #fce850;
+            --orange: #ff7b30;
+            --green: #4caf50;
+            --purple: #9c27b0;
+        }
+
+        body {
+            background-color: var(--bg-paper);
+            /* Graph paper background */
+            background-image: 
+                linear-gradient(var(--grid-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background-size: 30px 30px;
+            color: var(--text-dark);
+            font-family: 'Courier Prime', monospace;
+            margin: 0;
+            padding: 40px 20px;
+            overflow-x: hidden;
+        }
+
+        .board-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        /* --- MAGAZINE CUTOUT HEADER --- */
+        .collage-header {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .cutout-word {
+            display: inline-block;
+            margin: 0 10px;
+        }
+
+        .cutout {
+            display: inline-block;
+            font-family: 'Permanent Marker', cursive;
+            font-size: 3rem;
+            padding: 5px 10px;
+            margin: 2px;
+            box-shadow: 3px 3px 6px rgba(0,0,0,0.2);
+            text-transform: uppercase;
+        }
+
+        /* Randomizing the cutout letters to look like the poster */
+        .c1 { background: var(--text-dark); color: white; transform: rotate(-5deg); }
+        .c2 { background: var(--pink); color: white; transform: rotate(3deg); }
+        .c3 { background: var(--yellow); color: var(--text-dark); transform: rotate(-2deg); }
+        .c4 { background: var(--blue); color: white; transform: rotate(4deg); }
+        .c5 { background: var(--orange); color: white; transform: rotate(-4deg); }
+        .c6 { background: var(--green); color: white; transform: rotate(2deg); }
+        .c7 { background: white; color: var(--text-dark); border: 2px solid var(--text-dark); transform: rotate(-3deg); font-family: 'Space Mono', monospace;}
+
+        .sub-brand {
+            font-family: 'VT323', monospace;
+            font-size: 1.5rem;
+            color: #666;
+            margin-top: 10px;
+            letter-spacing: 2px;
+        }
+
+        /* --- GRID AND CARDS --- */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            padding: 20px;
+        }
+
+        /* Scrapbook Paper Card */
+        .scrap-card {
+            background: #fff;
+            padding: 30px;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.1);
+            position: relative;
+            border: 1px solid #ddd;
+        }
+
+        .scrap-card::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 25px;
+            background: rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(0,0,0,0.1);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            z-index: 5;
+        }
+
+        /* Retro OS Window Card */
+        .window-card {
+            background: #fff;
+            border: 2px solid var(--text-dark);
+            box-shadow: 6px 6px 0px var(--pink);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .window-card.blue-shadow { box-shadow: 6px 6px 0px var(--blue); }
+        .window-card.yellow-shadow { box-shadow: 6px 6px 0px var(--yellow); }
+
+        .window-header {
+            background: white;
+            border-bottom: 2px solid var(--text-dark);
+            padding: 5px 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .window-controls span {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border: 2px solid var(--text-dark);
+            margin-left: 5px;
+            background: white;
+        }
+
+        .window-content {
+            padding: 20px;
+            flex-grow: 1;
+        }
+
+        h2 {
+            font-family: 'Permanent Marker', cursive;
+            font-size: 1.8rem;
+            margin-top: 0;
+            line-height: 1.2;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 12px;
+        }
+
+        .highlight {
+            background-color: var(--yellow);
+            padding: 0 5px;
+            font-weight: bold;
+        }
+
+        .kaomoji {
+            font-family: 'VT323', monospace;
+            font-size: 2rem;
+            color: var(--pink);
+            text-align: right;
+            margin: 10px 0 0 0;
+        }
+
+        /* Rotations for the chaotic scrapbook feel */
+        .rot-1 { transform: rotate(-2deg); }
+        .rot-2 { transform: rotate(1deg); }
+        .rot-3 { transform: rotate(3deg); }
+        .rot-4 { transform: rotate(-1deg); }
+        .rot-5 { transform: rotate(2deg); }
+
+        /* Media Query for mobile */
+        @media (max-width: 768px) {
+            .cutout { font-size: 2rem; }
+            .grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="board-container">
+        <!-- HEADER -->
+        <header class="collage-header">
+            <div class="cutout-word">
+                <span class="cutout c1">J</span><span class="cutout c7">A</span><span class="cutout c4">C</span><span class="cutout c2">K</span>
+            </div>
+            <div class="cutout-word">
+                <span class="cutout c6">O</span><span class="cutout c5">F</span>
+            </div>
+            <br>
+            <div class="cutout-word" style="margin-top: 15px;">
+                <span class="cutout c4">A</span><span class="cutout c3">L</span><span class="cutout c3">L</span>
+            </div>
+            <div class="cutout-word">
+                <span class="cutout c1">T</span><span class="cutout c2">R</span><span class="cutout c7">A</span><span class="cutout c5">D</span><span class="cutout c1">E</span><span class="cutout c6">S</span>
+            </div>
+            <div class="sub-brand">by Mufuyu Moku</div>
+        </header>
+
+        <div class="grid">
+            
+            <!-- Point 1: Interests/Hobbies -->
+            <div class="scrap-card rot-1">
+                <h2>1. The Catalyst</h2>
+                <p>Building from absolute nothingness and exploring the unconventional. The labyrinth of my experiments includes:</p>
+                <ul>
+                    <li><strong>Arts & Audio:</strong> Music & Vocaloid producing, 3D sculpting/engineering (weirdcore & dreamcore aesthetics), 2D drawing (pixel art, doodles).</li>
+                    <li><strong>Narrative & Fiction:</strong> Writing dark, philosophical, and surrealist stories.</li>
+                    <li><strong>Systems:</strong> Programming and building structures purely fueled by ideas and madness.</li>
+                    <li><strong>Content & Gaming:</strong> Streaming, YouTube, tactical simulators.</li>
+                    <li><strong>The Rabbit Holes:</strong> Deep dives into military tactics, weapons, PMC, aviation, medicine, quantum physics, architecture, science, philiography, and the philosophy of coffee, tea, and flowers.</li>
+                </ul>
+                <div class="kaomoji" style="color: var(--text-dark);">✍(◔◡◔)</div>
+            </div>
+
+            <!-- Point 2: 5-10 Year Plan -->
+            <div class="window-card blue-shadow rot-3">
+                <div class="window-header">
+                    <span>C:\Visions\Decade_Plan.exe</span>
+                    <div class="window-controls"><span></span><span></span><span></span></div>
+                </div>
+                <div class="window-content">
+                    <h2>2. Absolute Freedom</h2>
+                    <p>Becoming a true <span class="highlight">Jack of All Trades</span>. Over the next decade, I will execute a borderless identity:</p>
+                    <ul>
+                        <li>Continuously thriving in <strong>content creation</strong>.</li>
+                        <li>Opening cross-disciplinary <strong>commissions</strong> (programming, drawing, writing, translating).</li>
+                        <li>Handling experimental projects and bringing crazy ideas to life under my own terms.</li>
+                    </ul>
+                    <p><em>Goal: Absolute individuality and freedom.</em></p>
+                    <div class="kaomoji">(^_^)</div>
+                </div>
+            </div>
+
+            <!-- Point 3: Location / Work -->
+            <div class="window-card yellow-shadow rot-4">
+                <div class="window-header">
+                    <span>Location.sys</span>
+                    <div class="window-controls"><span></span><span></span><span></span></div>
+                </div>
+                <div class="window-content">
+                    <h2>3. The Independent Base</h2>
+                    <p><strong>Status: Location Independent.</strong></p>
+                    <p>I am not confined to traditional corporate cubicles or rigid educational systems. My workspace exists wherever the server runs, the canvas opens, and my ideas flow.</p>
+                    <p>Whether I'm managing projects, releasing music, or writing fiction, my "office" is an ecosystem I build myself.</p>
+                    <div class="kaomoji" style="color: var(--orange);">(T^T)</div>
+                </div>
+            </div>
+
+            <!-- Point 4: Skills -->
+            <div class="scrap-card rot-2">
+                <h2>4. The Arsenal</h2>
+                <p>My skillset is a direct reflection of my hobbies—a heavy collision between systematic engineering and artistic intuition:</p>
+                <ul>
+                    <li><strong>Software Engineering:</strong> System architecture & full-stack development.</li>
+                    <li><strong>Audio Engineering:</strong> DAW mastery and vocal synthesis tuning.</li>
+                    <li><strong>Visual Arts:</strong> 3D environmental design and 2D illustration.</li>
+                    <li><strong>Creative Writing:</strong> Crafting narratives, world-building, and language translation.</li>
+                    <li><strong>Research:</strong> The ability to absorb highly complex information (quantum physics, military history) and apply it to creations.</li>
+                </ul>
+            </div>
+
+            <!-- Point 5: Finance -->
+            <div class="window-card rot-5" style="box-shadow: 6px 6px 0px var(--green); grid-column: 1 / -1;">
+                <div class="window-header">
+                    <span>Target_Finance.log</span>
+                    <div class="window-controls"><span></span><span></span><span></span></div>
+                </div>
+                <div class="window-content">
+                    <h2>5. Foundation for Madness</h2>
+                    <p>My financial goals are not built on "flexing" luxury, but on <strong>Stability and Fuel for Experiments:</strong></p>
+                    <ul>
+                        <li><strong>Family-Level Stability:</strong> A secure, stable income (active and passive) that fully covers and protects the family's living needs. The foundational layer must be completely sorted.</li>
+                        <li><strong>The R&D Fund:</strong> Unlimited capital to fund absolute madness—whether it's buying high-performance hardware, new audio gear, rare voicebanks, heavy machinery, or researching personal projects that might seem insane to anyone else.</li>
+                    </ul>
+                    <div class="kaomoji" style="color: var(--green);">[$_$]</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>
