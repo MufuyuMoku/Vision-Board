@@ -63,7 +63,6 @@
             text-transform: uppercase;
         }
 
-        /* Randomizing the cutout letters to look like the poster */
         .c1 { background: var(--text-dark); color: white; transform: rotate(-5deg); }
         .c2 { background: var(--pink); color: white; transform: rotate(3deg); }
         .c3 { background: var(--yellow); color: var(--text-dark); transform: rotate(-2deg); }
@@ -186,10 +185,94 @@
         .rot-4 { transform: rotate(-1deg); }
         .rot-5 { transform: rotate(2deg); }
 
+        /* --- POSTER PREVIEW STYLES --- */
+        .poster-container {
+            margin-top: 60px;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .poster-thumbnail {
+            max-width: 300px;
+            border: 4px solid white;
+            box-shadow: 8px 8px 0px rgba(0,0,0,0.8);
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            transform: rotate(2deg);
+        }
+
+        .poster-thumbnail:hover {
+            transform: scale(1.05) rotate(0deg);
+            box-shadow: 12px 12px 0px var(--pink);
+        }
+
+        .poster-label {
+            font-family: 'Permanent Marker', cursive;
+            font-size: 1.5rem;
+            margin-top: 20px;
+            color: var(--text-dark);
+            transform: rotate(-1deg);
+            display: inline-block;
+            background: var(--yellow);
+            padding: 5px 15px;
+            box-shadow: 3px 3px 0px rgba(0,0,0,0.8);
+        }
+
+        /* --- LIGHTBOX/MODAL STYLES --- */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1000; 
+            padding-top: 60px; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgba(0, 0, 0, 0.85); 
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 85vh;
+            border: 5px solid white;
+            box-shadow: 0px 0px 30px rgba(255, 107, 158, 0.4);
+            animation: zoomIn 0.3s ease;
+        }
+
+        @keyframes zoomIn {
+            from {transform: scale(0.8); opacity: 0;}
+            to {transform: scale(1); opacity: 1;}
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            color: #f1f1f1;
+            font-size: 50px;
+            font-weight: bold;
+            font-family: 'Space Mono', monospace;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .close-btn:hover,
+        .close-btn:focus {
+            color: var(--pink);
+            text-decoration: none;
+            cursor: pointer;
+        }
+
         /* Media Query for mobile */
         @media (max-width: 768px) {
             .cutout { font-size: 2rem; }
             .grid { grid-template-columns: 1fr; }
+            .modal-content { max-width: 95%; }
+            .close-btn { right: 20px; font-size: 40px; }
         }
     </style>
 </head>
@@ -215,7 +298,6 @@
         </header>
 
         <div class="grid">
-            
             <!-- Point 1: Interests/Hobbies -->
             <div class="scrap-card rot-1">
                 <h2>1. The Catalyst</h2>
@@ -293,9 +375,56 @@
                     <div class="kaomoji" style="color: var(--green);">[$_$]</div>
                 </div>
             </div>
-
         </div>
+
+        <!-- POSTER SECTION AT THE BOTTOM -->
+        <div class="poster-container">
+            <img src="Vision_Board.png" alt="Original Vision Board Poster" class="poster-thumbnail" id="posterTrigger">
+            <br>
+            <div class="poster-label">CLICK TO ENLARGE (⌐■_■)</div>
+        </div>
+
     </div>
+
+    <!-- LIGHTBOX MODAL -->
+    <div id="posterModal" class="modal">
+        <span class="close-btn">&times;</span>
+        <img class="modal-content" id="expandedImg">
+    </div>
+
+    <!-- JAVASCRIPT FOR MODAL FUNCTIONALITY -->
+    <script>
+        // Get the modal and image elements
+        const modal = document.getElementById("posterModal");
+        const triggerImg = document.getElementById("posterTrigger");
+        const modalImg = document.getElementById("expandedImg");
+        const closeBtn = document.getElementsByClassName("close-btn")[0];
+
+        // Open modal when clicking the thumbnail
+        triggerImg.onclick = function() {
+            modal.style.display = "block";
+            modalImg.src = this.src;
+        }
+
+        // Close modal when clicking the "X" button
+        closeBtn.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // Close modal when clicking anywhere outside the expanded image
+        modal.onclick = function(event) {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        // Close modal when pressing the Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape" && modal.style.display === "block") {
+                modal.style.display = "none";
+            }
+        });
+    </script>
 
 </body>
 </html>
